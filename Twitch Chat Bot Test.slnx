@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="third_party/conan.vcxproj">
+    <Build Project="false" />
+  </Project>
+  <Project Path="Twitch Chat Bot Test/Twitch Chat Bot Test.vcxproj" />
+</Solution>

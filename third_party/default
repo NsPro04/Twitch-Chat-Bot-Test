@@ -1,0 +1,33 @@
+[settings]
+os=Windows
+arch=x86_64
+#build_type = compiler.runtime_type = $(Configuration)
+
+compiler=clang
+compiler.version = {{ os.getenv("LLVMToolsVersion").split('.')[0] }}
+
+compiler.cppstd=20
+
+compiler.runtime=dynamic
+compiler.runtime_version=v145
+
+########
+strawberryperl/*:compiler=msvc
+strawberryperl/*:compiler.version=195
+strawberryperl/*:build_type=Release
+strawberryperl/*:compiler.runtime_type=Release
+
+nasm/*:compiler=msvc
+nasm/*:compiler.version=195
+nasm/*:build_type=Release
+nasm/*:compiler.runtime_type=Release
+
+openssl/*:compiler=msvc
+openssl/*:compiler.version=195
+openssl/*:compiler.runtime=dynamic
+openssl/*:build_type=Release
+openssl/*:compiler.runtime_type=Release
+########
+
+[conf]
+tools.cmake.cmaketoolchain:generator=Visual Studio 18 2026
