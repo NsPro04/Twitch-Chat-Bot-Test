@@ -2,10 +2,10 @@
 #include <nlohmann/json.hpp>
 
 #include "utils/content_types.h"
-#include "utils/authorize.h"
-#include "utils/new_wscli.h"
-#include "utils/session_welcome.h"
-#include "utils/new_cli.h"
+#include "authorize/authorize.h"
+#include "utils/new_wscli/new_wscli.h"
+#include "session_welcome/session_welcome.h"
+#include "utils/new_cli/new_cli.h"
 
 #include <string_view>
 #include <chrono>

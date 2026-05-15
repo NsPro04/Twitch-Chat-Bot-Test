@@ -1,4 +1,4 @@
-﻿#include "utils/new_wscli.h"
+﻿#include "utils/new_wscli/new_wscli.h"
 
 #include <string>
 #include <stdexcept>

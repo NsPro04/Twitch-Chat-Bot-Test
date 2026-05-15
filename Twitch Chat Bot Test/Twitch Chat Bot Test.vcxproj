@@ -14,22 +14,20 @@
     <Manifest Include=".manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\authorize\authorize.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\utils\authorize.cpp" />
-    <ClCompile Include="src\utils\get_current_time.cpp" />
-    <ClCompile Include="src\utils\new_cli.cpp" />
-    <ClCompile Include="src\utils\new_srv.cpp" />
-    <ClCompile Include="src\utils\new_wscli.cpp" />
-    <ClCompile Include="src\utils\session_welcome.cpp" />
+    <ClCompile Include="src\session_welcome\session_welcome.cpp" />
+    <ClCompile Include="src\utils\new_cli\new_cli.cpp" />
+    <ClCompile Include="src\utils\new_srv\new_srv.cpp" />
+    <ClCompile Include="src\utils\new_wscli\new_wscli.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\utils\authorize.h" />
+    <ClInclude Include="src\authorize\authorize.h" />
+    <ClInclude Include="src\session_welcome\session_welcome.h" />
     <ClInclude Include="src\utils\content_types.h" />
-    <ClInclude Include="src\utils\get_current_time.h" />
-    <ClInclude Include="src\utils\new_cli.h" />
-    <ClInclude Include="src\utils\new_srv.h" />
-    <ClInclude Include="src\utils\new_wscli.h" />
-    <ClInclude Include="src\utils\session_welcome.h" />
+    <ClInclude Include="src\utils\new_cli\new_cli.h" />
+    <ClInclude Include="src\utils\new_srv\new_srv.h" />
+    <ClInclude Include="src\utils\new_wscli\new_wscli.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <PlatformToolset>ClangCL</PlatformToolset>

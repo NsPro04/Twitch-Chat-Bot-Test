@@ -1,4 +1,4 @@
-﻿#include "utils/new_srv.h"
+﻿#include "utils/new_srv/new_srv.h"
 
 static std::unique_ptr<httplib::Server> new_srv() {
   auto srv_ptr = std::make_unique<httplib::Server>();

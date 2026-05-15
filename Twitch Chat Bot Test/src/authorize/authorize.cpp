@@ -1,4 +1,4 @@
-﻿#include "utils/authorize.h"
+﻿#include "authorize/authorize.h"
 
 #include <oneapi/tbb/global_control.h>
 #include <oneapi/tbb/task_group.h>
@@ -6,8 +6,7 @@
 #include <nlohmann/json.hpp>
 
 #include "utils/content_types.h"
-#include "utils/new_srv.h"
-#include "utils/get_current_time.h"
+#include "utils/new_srv/new_srv.h"
 
 #include <atomic>
 #include <mutex>
@@ -25,6 +24,10 @@ constexpr std::string_view REDIRECT_DOMAIN = "localhost";
 constexpr std::string_view REDIRECT_PATH = "/dummy";
 
 constexpr std::string_view REDIRECT2_PATH = "/response";
+
+static std::chrono::milliseconds::rep get_current_time() {
+  return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+};
 
 std::string authorize(std::string_view CLIENT_ID) {
   [[maybe_unused]] tbb::global_control _global_control(tbb::global_control::max_allowed_parallelism, (std::max<size_t>)(4, tbb::global_control::active_value(tbb::global_control::max_allowed_parallelism)));

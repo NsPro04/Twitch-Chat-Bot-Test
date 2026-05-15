@@ -16,54 +16,63 @@
     <Filter Include="Source Files\utils">
       <UniqueIdentifier>{4d40a974-5b0e-499e-8afe-b3eb2fc9035f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\authorize">
+      <UniqueIdentifier>{8e95e090-eccc-4500-8a86-312789a68d6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\session_welcome">
+      <UniqueIdentifier>{2380fadb-d97c-4bc1-abb1-5751969be7eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils\new_cli">
+      <UniqueIdentifier>{b3c689d2-c053-41a2-a42d-8e41743c1693}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils\new_srv">
+      <UniqueIdentifier>{de2355a9-d5e1-45d6-8c80-fc87fc411455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils\new_wscli">
+      <UniqueIdentifier>{01cc8f7f-2dea-4077-a49f-4a454c153b4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\utils\new_cli.cpp">
-      <Filter>Source Files\utils</Filter>
+    <ClCompile Include="src\authorize\authorize.cpp">
+      <Filter>Source Files\authorize</Filter>
     </ClCompile>
-    <ClCompile Include="src\utils\new_srv.cpp">
-      <Filter>Source Files\utils</Filter>
+    <ClCompile Include="src\session_welcome\session_welcome.cpp">
+      <Filter>Source Files\session_welcome</Filter>
     </ClCompile>
-    <ClCompile Include="src\utils\authorize.cpp">
-      <Filter>Source Files\utils</Filter>
+    <ClCompile Include="src\utils\new_cli\new_cli.cpp">
+      <Filter>Source Files\utils\new_cli</Filter>
     </ClCompile>
-    <ClCompile Include="src\utils\new_wscli.cpp">
-      <Filter>Source Files\utils</Filter>
+    <ClCompile Include="src\utils\new_srv\new_srv.cpp">
+      <Filter>Source Files\utils\new_srv</Filter>
     </ClCompile>
-    <ClCompile Include="src\utils\get_current_time.cpp">
-      <Filter>Source Files\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils\session_welcome.cpp">
-      <Filter>Source Files\utils</Filter>
+    <ClCompile Include="src\utils\new_wscli\new_wscli.cpp">
+      <Filter>Source Files\utils\new_wscli</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include=".manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\utils\new_cli.h">
-      <Filter>Source Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\new_srv.h">
-      <Filter>Source Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\authorize.h">
-      <Filter>Source Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\new_wscli.h">
-      <Filter>Source Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\get_current_time.h">
-      <Filter>Source Files\utils</Filter>
-    </ClInclude>
     <ClInclude Include="src\utils\content_types.h">
       <Filter>Source Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="src\utils\session_welcome.h">
-      <Filter>Source Files\utils</Filter>
+    <ClInclude Include="src\authorize\authorize.h">
+      <Filter>Source Files\authorize</Filter>
+    </ClInclude>
+    <ClInclude Include="src\session_welcome\session_welcome.h">
+      <Filter>Source Files\session_welcome</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\new_cli\new_cli.h">
+      <Filter>Source Files\utils\new_cli</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\new_srv\new_srv.h">
+      <Filter>Source Files\utils\new_srv</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\new_wscli\new_wscli.h">
+      <Filter>Source Files\utils\new_wscli</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
