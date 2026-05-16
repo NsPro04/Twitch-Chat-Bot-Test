@@ -14,6 +14,7 @@
 #include <stdexcept>
 #include <format>
 #include <thread>
+#include <regex>
 
 constexpr std::string_view CLIENT_ID = "8tcrk8hcpedfk2byde809qf946nz60";
 
@@ -93,7 +94,7 @@ static void _main() {
 
     spdlog::info("{}({}): '{}' {}", user_name, user_login, msg_text, msg_text.size());
 
-    if (msg_text.size() >= 5 && std::string_view(msg_text).substr(0, 5) == "!ping") {
+    if (std::regex_search(msg_text, std::regex("(?:(?:^![Pp][Ii][Nn][Gg])|(?:^!(?:П|п)(?:И|и)(?:Н|н)(?:Г|г)))"))) {
       auto current_time = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now());
 
       std::unique_ptr<httplib::Client> cli = new_cli(TWITCH_API_BASE_URL);
