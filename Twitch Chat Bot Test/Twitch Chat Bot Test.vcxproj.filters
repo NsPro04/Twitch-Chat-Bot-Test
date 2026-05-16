@@ -31,6 +31,9 @@
     <Filter Include="Source Files\utils\new_wscli">
       <UniqueIdentifier>{01cc8f7f-2dea-4077-a49f-4a454c153b4a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\utils\get_current_time_ms">
+      <UniqueIdentifier>{8f6dd229-ccf1-4fc9-b769-d2c5a1083ddc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -50,6 +53,9 @@
     </ClCompile>
     <ClCompile Include="src\utils\new_wscli\new_wscli.cpp">
       <Filter>Source Files\utils\new_wscli</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\get_current_time_ms\get_current_time_ms.cpp">
+      <Filter>Source Files\utils\get_current_time_ms</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="src\utils\new_wscli\new_wscli.h">
       <Filter>Source Files\utils\new_wscli</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\get_current_time_ms\get_current_time_ms.h">
+      <Filter>Source Files\utils\get_current_time_ms</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

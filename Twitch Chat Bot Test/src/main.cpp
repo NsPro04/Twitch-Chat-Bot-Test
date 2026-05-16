@@ -7,6 +7,7 @@
 #include "utils/new_wscli/new_wscli.h"
 #include "session_welcome/session_welcome.h"
 #include "utils/new_cli/new_cli.h"
+#include "utils/get_current_time_ms/get_current_time_ms.h"
 
 #include <string_view>
 #include <chrono>
@@ -16,6 +17,7 @@
 #include <format>
 #include <thread>
 #include <regex>
+#include <random>
 
 constexpr std::string_view CLIENT_ID = "8tcrk8hcpedfk2byde809qf946nz60";
 
@@ -95,21 +97,12 @@ static void _main() {
 
     spdlog::info("{}({}): '{}' {}", user_name, user_login, msg_text, msg_text.size());
 
+    std::string res_msg;
+
     if (std::regex_search(msg_text, std::regex("(?:(?:^![Pp][Ii][Nn][Gg])|(?:^!(?:П|п)(?:И|и)(?:Н|н)(?:Г|г)))"))) {
       auto current_time = std::chrono::time_point_cast<std::chrono::milliseconds>(std::chrono::system_clock::now());
 
-      std::unique_ptr<httplib::Client> cli = new_cli(TWITCH_API_BASE_URL);
-
-      // https://dev.twitch.tv/docs/api/reference#send-chat-message
-      httplib::Result result = cli->Post(std::string(TWITCH_CHAT_MESSAGES_URL), {
-        {"Authorization", std::format("Bearer {}", access_token)},
-        {"Client-Id",     std::format("{}",        CLIENT_ID)}
-      }, njson({
-        {"broadcaster_id", BROADCASTER_ID},
-        {"sender_id", USER_ID},
-        {"message", std::format("pong [{0:%F} {0:%T}]", current_time)},
-        {"reply_parent_message_id", message_id}
-      }).dump(), std::string(CONTENT_TYPE_JSON));
+      res_msg = std::format("pong [{0:%F} {0:%T}]", current_time);
     }
 
     do {
@@ -143,6 +136,29 @@ static void _main() {
         res.push_back((to == "ru" ? ru : en)[pos]);
       }
 
+      res_msg = utf8::utf32to8(std::move(res));
+    } while (false);
+
+    do {
+      std::smatch match;
+
+      if (std::regex_search(msg_text, match, std::regex("(?:^!rand\\s*\\(\\s*([+-]?\\d+)\\s*,\\s*([+-]?\\d+)\\s*\\))"))) {
+        auto min = std::stoll(match.str(1));
+        auto max = std::stoll(match.str(2));
+
+        if (min > max) std::swap(min, max);
+
+        std::mt19937_64 gen(get_current_time_ms());
+
+        std::uniform_int_distribution distrib(min, max);
+
+        const auto value = distrib(gen);
+
+        res_msg = std::format("{}", value);
+      }
+    } while (false);
+
+    if (!res_msg.empty()) {
       std::unique_ptr<httplib::Client> cli = new_cli(TWITCH_API_BASE_URL);
 
       // https://dev.twitch.tv/docs/api/reference#send-chat-message
@@ -152,10 +168,10 @@ static void _main() {
       }, njson({
         {"broadcaster_id", BROADCASTER_ID},
         {"sender_id", USER_ID},
-        {"message", utf8::utf32to8(std::move(res))},
+        {"message", res_msg},
         {"reply_parent_message_id", message_id}
       }).dump(), std::string(CONTENT_TYPE_JSON));
-    } while (false);
+    }
   }
 
   spdlog::info("END");
