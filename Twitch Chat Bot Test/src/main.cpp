@@ -1,5 +1,6 @@
 ﻿#include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
+#include <utf8/checked.h>
 
 #include "utils/content_types.h"
 #include "authorize/authorize.h"
@@ -22,7 +23,7 @@ constexpr std::string_view CLIENT_ID = "8tcrk8hcpedfk2byde809qf946nz60";
 [[maybe_unused]] constexpr std::string_view GRUZCHIK_TASHIT_ID = "29916300";
 [[maybe_unused]] constexpr std::string_view NSPRO123_ID = "467322333";
 
-constexpr std::string_view BROADCASTER_ID = NSPRO123_ID;
+constexpr std::string_view BROADCASTER_ID = GRUZCHIK_TASHIT_ID;
 constexpr std::string_view USER_ID = NSPRO123_ID;
 
 constexpr std::string_view TWITCH_WEBSOCKET_URL = "wss://eventsub.wss.twitch.tv/ws";
@@ -110,6 +111,51 @@ static void _main() {
         {"reply_parent_message_id", message_id}
       }).dump(), std::string(CONTENT_TYPE_JSON));
     }
+
+    do {
+      constexpr std::u32string_view en = U"`1234567890-=qwertyuiop[]asdfghjkl;'\\zxcvbnm,./~!@#$%^&*()_+QWERTYUIOP{}ASDFGHJKL:\"|ZXCVBNM<>?";
+      constexpr std::u32string_view ru = U"ё1234567890-=йцукенгшщзхъфывапролджэ\\ячсмитьбю.Ё!\"№;%:?*()_+ЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭ/ЯЧСМИТЬБЮ,";
+
+      std::string_view to = "none";
+
+      std::smatch match;
+
+      if (std::regex_search(msg_text, match, std::regex("(?:^!2ru\\s*([\\S\\s]+))"))) {
+        to = "ru";
+      } else if (std::regex_search(msg_text, match, std::regex("(?:^2en\\s*([\\S\\s]+))"))) {
+        to = "en";
+      };
+
+      if (to == "none") break;
+
+      std::u32string res;
+
+      std::u32string msg_u32 = utf8::utf8to32(match.str(1));
+
+      for (const auto c : msg_u32) {
+        const size_t pos = (to == "ru" ? en : ru).find(c);
+
+        if (pos == std::u32string_view::npos) {
+          res.push_back(c);
+          continue;
+        }
+
+        res.push_back((to == "ru" ? ru : en)[pos]);
+      }
+
+      std::unique_ptr<httplib::Client> cli = new_cli(TWITCH_API_BASE_URL);
+
+      // https://dev.twitch.tv/docs/api/reference#send-chat-message
+      httplib::Result result = cli->Post(std::string(TWITCH_CHAT_MESSAGES_URL), {
+        {"Authorization", std::format("Bearer {}", access_token)},
+        {"Client-Id",     std::format("{}",        CLIENT_ID)}
+      }, njson({
+        {"broadcaster_id", BROADCASTER_ID},
+        {"sender_id", USER_ID},
+        {"message", utf8::utf32to8(std::move(res))},
+        {"reply_parent_message_id", message_id}
+      }).dump(), std::string(CONTENT_TYPE_JSON));
+    } while (false);
   }
 
   spdlog::info("END");
