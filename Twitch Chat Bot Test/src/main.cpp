@@ -115,7 +115,7 @@ static void _main() {
 
       if (std::regex_search(msg_text, match, std::regex("(?:^!2ru\\s*([\\S\\s]+))"))) {
         to = "ru";
-      } else if (std::regex_search(msg_text, match, std::regex("(?:^2en\\s*([\\S\\s]+))"))) {
+      } else if (std::regex_search(msg_text, match, std::regex("(?:^!2en\\s*([\\S\\s]+))"))) {
         to = "en";
       };
 
